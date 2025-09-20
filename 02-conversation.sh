@@ -1,9 +1,13 @@
 #!/bin/bash
 
-echo "Ramesh:: Hi suresh"
-echo "suresh:: Hello Ramesh"
-echo "Ramesh:: where are you"
-echo "suresh:: I'm In banglore"
+# no space betwen variable and value in the below 4 , 5 lines
+ person1=Ramesh
+ person2=suresh
+
+echo "$person1:: Hi $person2"
+echo "$person2:: Hello $person1"
+echo "$person1:: where are you"
+echo "$person2:: I'm In banglore"
 
 
 
