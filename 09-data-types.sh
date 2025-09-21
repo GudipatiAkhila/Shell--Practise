@@ -11,4 +11,6 @@ sum=$(($NUMBER1+$NUMBER2))
 echo "SUM is: ${sum}"
 
 LEADERS={"AKHI","AKHILA"}
-echo "All leaders: ${LEADERS}[@]"
+echo "All leaders: ${LEADERS[@]}"
+
+echo "All leaders: ${LEADERS[0]}"
