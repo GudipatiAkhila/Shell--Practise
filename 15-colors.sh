@@ -17,6 +17,22 @@ VALIDATE(){
     fi
 }
 
+dnf list installed mysql
+
+if[ $? -ne 0 ]; then
+    dnf install mysql -y
+    VALIDATE $? "MySQL"
+else
+    echo "MySQL already exsit..$G SKIPPING $N"
+fi
+
+dnf list installed nginx
+if [ $? -ne 0 ]; then 
+    dnf install nginx -y
+    VALIDATE $? "nginx"
+else
+    echo "MySQL alredy exsit.. $G SKIPPING $N"
+fi 
 dnf install mysql -y
 VALIDATE $? "MySQL"
 
