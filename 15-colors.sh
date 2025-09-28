@@ -1,44 +1,46 @@
 #!/bin/bash
 
-
-
 USERID=$(id -u)
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
-if [ $USERID -ne 0 ]; then 
-    echo "ERROR:: please run this script with root privelege"
-    exit 1 # failure other than 0 [ 0 means success]
+if [ $USERID -ne 0 ]; then
+    echo "ERROR:: Please run this script with root privelege"
+    exit 1 # failure is other than 0
 fi
-VALIDATE(){
-    if [ $1 -ne 0 ]; then 
-        echo -e "ERROR:: installing $2..$R  failure $N"
+
+VALIDATE(){ # functions receive inputs through args just like shell script args
+    if [ $1 -ne 0 ]; then
+        echo -e "Installing $2 ... $R FAILURE $N"
         exit 1
     else
-        echo -e "Installing $2...$G success $N"
+        echo -e "Installing $2 ... $G SUCCESS $N"
     fi
 }
 
 dnf list installed mysql
-
-if[ $? -ne 0 ]; then
+# Install if it is not found
+if [ $? -ne 0 ]; then
     dnf install mysql -y
     VALIDATE $? "MySQL"
 else
-    echo "MySQL already exsit..$G SKIPPING $N"
+    echo -e "MySQL already exist ... $Y SKIPPING $N"
 fi
 
 dnf list installed nginx
-if [ $? -ne 0 ]; then 
+if [ $? -ne 0 ]; then
     dnf install nginx -y
-    VALIDATE $? "nginx"
+    VALIDATE $? "Nginx"
 else
-    echo "MySQL alredy exsit.. $G SKIPPING $N"
-fi 
-dnf install mysql -y
-VALIDATE $? "MySQL"
+    echo -e "Nginx already exist ... $Y SKIPPING $N"
+fi
 
-dnf install nginx -y
-VALIDATE $? "nginx"
-
-
-dnf install Python3 -y
-VALIDATE $? "Python3"
+dnf list installed python3
+if [ $? -ne 0 ]; then
+    dnf install python3 -y
+    VALIDATE $? "python3"
+else
+    echo -e "Python3 already exist ... $Y SKIPPING $N"
+fi
